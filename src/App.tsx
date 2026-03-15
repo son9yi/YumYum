@@ -135,6 +135,30 @@ export default function App() {
 
 // --- Components ---
 
+function Poodle({ color, className }: { color: string; className?: string }) {
+  return (
+    <div className={`relative w-14 h-14 ${className}`}>
+      {/* Ears */}
+      <div
+        className={`absolute -left-3 top-1 w-8 h-10 rounded-full ${color} shadow-sm`}
+      ></div>
+      <div
+        className={`absolute -right-3 top-1 w-8 h-10 rounded-full ${color} shadow-sm`}
+      ></div>
+      {/* Face */}
+      <div
+        className={`absolute inset-0 rounded-full ${color} shadow-md border-2 border-white/30 flex flex-col items-center justify-center`}
+      >
+        <div className="flex gap-4 mb-1">
+          <div className="w-1.5 h-1.5 bg-gray-900 rounded-full"></div>
+          <div className="w-1.5 h-1.5 bg-gray-900 rounded-full"></div>
+        </div>
+        <div className="w-2 h-1.5 bg-gray-900 rounded-full"></div>
+      </div>
+    </div>
+  );
+}
+
 function TopBar({ title, onBack }: { title: string; onBack: () => void }) {
   return (
     <div className="flex items-center p-4 bg-[#C8E6C9] shadow-sm sticky top-0 z-10 rounded-b-3xl">
@@ -185,58 +209,71 @@ const HomeView: React.FC<{ onNavigate: (view: any) => void }> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="flex flex-col items-center p-4 pt-10 h-full min-h-screen"
+      className="flex flex-col items-center p-4 pt-6 h-full min-h-screen"
     >
-      <motion.h1
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1 }}
-        transition={{ type: "spring", bounce: 0.5 }}
-        className="text-5xl text-center text-orange-500 drop-shadow-md mb-8"
-      >
-        오늘 급식 뭐야?
-      </motion.h1>
+      <div className="relative mb-4">
+        <motion.h1
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", bounce: 0.5 }}
+          className="text-5xl text-center text-orange-500 drop-shadow-md"
+        >
+          오늘 급식 뭐야?
+        </motion.h1>
+        <div className="absolute -bottom-5 right-0 text-[10px] text-gray-400 opacity-30 font-medium">
+          by_은재맘
+        </div>
+      </div>
 
-      <div className="flex-1 flex items-center justify-center w-full pb-16">
+      <div className="flex-1 flex items-center justify-center w-full py-6">
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="relative w-64 h-48"
+          className="flex items-center justify-center gap-6"
         >
+          {/* Poodle 1 */}
+          <Poodle color="bg-[#F3E5AB]" className="transform -rotate-6" />
+
           {/* Cute Round Tray */}
-          <div className="w-full h-full bg-[#C8E6C9] rounded-[2.5rem] flex flex-col shadow-lg border-[5px] border-white/80 relative p-3 gap-3">
-            {/* Top compartments (Side dishes) */}
-            <div className="flex w-full gap-3 h-16">
-              <div className="flex-1 bg-white/70 rounded-full shadow-inner flex items-center justify-center text-3xl">
-                🥦
-              </div>
-              <div className="flex-1 bg-white/70 rounded-full shadow-inner flex items-center justify-center text-3xl">
-                🥚
-              </div>
-              <div className="flex-1 bg-white/70 rounded-full shadow-inner flex items-center justify-center text-3xl">
-                🍎
-              </div>
-            </div>
-            {/* Bottom compartments (Rice & Soup) */}
-            <div className="flex w-full gap-3 flex-1">
-              <div className="flex-1 bg-white/70 rounded-2xl shadow-inner flex items-center justify-center text-5xl">
-                🍚
-              </div>
-              <div className="flex-1 bg-white/70 rounded-2xl shadow-inner flex flex-col items-center justify-center relative">
-                {/* Cute Face */}
-                <div className="flex gap-3 mb-1.5 z-10">
-                  <div className="w-3 h-3 bg-gray-800 rounded-full"></div>
-                  <div className="w-3 h-3 bg-gray-800 rounded-full"></div>
+          <div className="relative w-52 h-40">
+            <div className="w-full h-full bg-[#C8E6C9] rounded-[2.5rem] flex flex-col shadow-lg border-[5px] border-white/80 relative p-3 gap-2">
+              {/* Top compartments (Side dishes) */}
+              <div className="flex w-full gap-2 h-12">
+                <div className="flex-1 bg-white/70 rounded-full shadow-inner flex items-center justify-center text-2xl">
+                  🥦
                 </div>
-                <div className="w-5 h-2.5 border-b-[3px] border-gray-800 rounded-full z-10"></div>
-                {/* Blushes */}
-                <div className="absolute top-1/2 left-4 w-4 h-2 bg-pink-400 rounded-full opacity-50"></div>
-                <div className="absolute top-1/2 right-4 w-4 h-2 bg-pink-400 rounded-full opacity-50"></div>
+                <div className="flex-1 bg-white/70 rounded-full shadow-inner flex items-center justify-center text-2xl">
+                  🥚
+                </div>
+                <div className="flex-1 bg-white/70 rounded-full shadow-inner flex items-center justify-center text-2xl">
+                  🍎
+                </div>
+              </div>
+              {/* Bottom compartments (Rice & Soup) */}
+              <div className="flex w-full gap-2 flex-1">
+                <div className="flex-1 bg-white/70 rounded-2xl shadow-inner flex items-center justify-center text-4xl">
+                  🍚
+                </div>
+                <div className="flex-1 bg-white/70 rounded-2xl shadow-inner flex flex-col items-center justify-center relative">
+                  {/* Cute Face */}
+                  <div className="flex gap-2 mb-1 z-10">
+                    <div className="w-2.5 h-2.5 bg-gray-800 rounded-full"></div>
+                    <div className="w-2.5 h-2.5 bg-gray-800 rounded-full"></div>
+                  </div>
+                  <div className="w-4 h-2 border-b-[2px] border-gray-800 rounded-full z-10"></div>
+                  {/* Blushes */}
+                  <div className="absolute top-1/2 left-3 w-3 h-1.5 bg-pink-400 rounded-full opacity-50"></div>
+                  <div className="absolute top-1/2 right-3 w-3 h-1.5 bg-pink-400 rounded-full opacity-50"></div>
+                </div>
               </div>
             </div>
+            <div className="absolute -bottom-4 -right-3 bg-yellow-300 text-yellow-900 px-4 py-1.5 rounded-full text-xs font-bold shadow-md transform rotate-6">
+              동글이 식판
+            </div>
           </div>
-          <div className="absolute -bottom-4 -right-3 bg-yellow-300 text-yellow-900 px-5 py-2 rounded-full text-sm font-bold shadow-md transform rotate-6">
-            동글이 식판
-          </div>
+
+          {/* Poodle 2 */}
+          <Poodle color="bg-[#8B4513]" className="transform rotate-6" />
         </motion.div>
       </div>
 
@@ -449,36 +486,16 @@ const TodayMealView: React.FC<{
 }> = ({ onNavigate, mealPlans, onLike, likedMenus }) => {
   const [showTomorrow, setShowTomorrow] = useState(false);
 
-  const todayStr = format(new Date(), "yyyy-MM-dd");
-  const tomorrowStr = format(addDays(new Date(), 1), "yyyy-MM-dd");
+  const today = new Date();
+  const tomorrow = addDays(today, 1);
+  const targetDate = showTomorrow ? tomorrow : today;
+  const targetStr = format(targetDate, "yyyy-MM-dd");
 
-  let currentIndex = mealPlans.findIndex((p) => p.date === todayStr);
-  if (currentIndex === -1) currentIndex = 0; // Fallback to first item if today is not found
-
-  let targetPlan;
-
-  if (showTomorrow) {
-    targetPlan = mealPlans.find((p) => p.date === tomorrowStr);
-    // Fallback: If tomorrow's exact date isn't found (e.g. weekend), show the NEXT available meal plan
-    if (!targetPlan && mealPlans.length > currentIndex + 1) {
-      targetPlan = mealPlans[currentIndex + 1];
-    }
-  } else {
-    targetPlan = mealPlans.find((p) => p.date === todayStr);
-    // Fallback: If today's exact date isn't found, show the current index (0)
-    if (!targetPlan && mealPlans.length > 0) {
-      targetPlan = mealPlans[currentIndex];
-    }
-  }
-
-  const displayDate = targetPlan
-    ? parseISO(targetPlan.date)
-    : showTomorrow
-      ? addDays(new Date(), 1)
-      : new Date();
+  const targetPlan = mealPlans.find((p) => p.date === targetStr);
+  const isWeekend = targetDate.getDay() === 0 || targetDate.getDay() === 6;
 
   const days = ["일", "월", "화", "수", "목", "금", "토"];
-  const displayDateString = `${format(displayDate, "M월 d일")}(${days[displayDate.getDay()]})`;
+  const displayDateString = `${format(targetDate, "M월 d일")}(${days[targetDate.getDay()]})`;
 
   return (
     <motion.div
@@ -504,9 +521,11 @@ const TodayMealView: React.FC<{
             </h2>
 
             <div className="bg-yellow-100 text-yellow-800 p-3 rounded-2xl text-center mb-4 shadow-inner font-bold text-lg animate-bounce">
-              {showTomorrow
-                ? "내일은 이런 메뉴가 나와요! 👀"
-                : '"우와! 오늘 맛있는 거 나온다! 😋"'}
+              {isWeekend
+                ? "오늘은 즐거운 주말이에요! 🎈"
+                : showTomorrow
+                  ? "내일은 이런 메뉴가 나와요! 👀"
+                  : '"우와! 오늘 맛있는 거 나온다! 😋"'}
             </div>
 
             <div className="flex-1 overflow-y-auto min-h-0 mb-4">
@@ -536,6 +555,14 @@ const TodayMealView: React.FC<{
                     </motion.li>
                   ))}
                 </ul>
+              ) : isWeekend ? (
+                <div className="text-center py-12 text-gray-500">
+                  <div className="text-6xl mb-4">😴</div>
+                  <p className="text-xl">주말에는 급식이 없어요!</p>
+                  <p className="text-sm mt-2">
+                    가족들과 맛있는 거 먹으며 푹 쉬세요.
+                  </p>
+                </div>
               ) : (
                 <div className="text-center py-12 text-gray-500">
                   <div className="text-6xl mb-4">🍽️</div>
